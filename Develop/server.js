@@ -2,10 +2,10 @@ const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-const { notes } = require('./db/db');
+const { db } = require('./db/db');
 
 app.get('/api/db', (req, res) => {
-    let results = notes;
+    let results = db;
     console.log(req.query)
     res.json(results);
 })
