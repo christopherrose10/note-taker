@@ -11,36 +11,57 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
-const { db } = require('./db/db');
+app.use(express.static('public'));
 
-app.get('/api/db', (req, res) => {
-    let results = db;
+const { notes } = require('./db/db');
+
+app.get('/api/notes', (req, res) => {
+    let results = notes;
     console.log(req.query)
     res.json(results);
 });
 
-function createNewNote(body, dbArray) {
+function findById(id, notesArray) {
+    const result = notesArray.filter(notes => notes.id === id)[0];
+    return result;
+};
 
-    const db = body;
-    dbArray.push(db);
+function createNewNote(body, notesArray) {
+
+    const notes = body;
+    notesArray.push(notes);
 
     fs.writeFileSync(
         path.join(__dirname, './db/db.json'),
-        JSON.stringify({ db: dbArray }, null, 2)
+        JSON.stringify({ notes: notesArray }, null, 2)
     );
 
-    return db;
+    return notes;
 }
 
-app.post('/api/db', (req, res) => {
+app.post('/api/notes', (req, res) => {
 
     // set id based on what the next index of the array will be
-    req.body.id = db.length.toString();
+    req.body.id = notes.length.toString();
 
     // add animal to json file and animals array in this function
-    const db = createNewNote(req.body, db);
+    const notes = createNewNote(req.body, notes);
 
     res.json(req.body);
+});
+
+//routes html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+//wildcard routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.listen(PORT, () => {
