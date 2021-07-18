@@ -1,25 +1,5 @@
-{
-    "notes": [
-        {
-            "id": "0",
-            "name": "Spindle",
-            "species": "bear",
-            "diet": "carnivore",
-            "personalityTraits": [
-                "hungry",
-                "zany",
-                "loving"
-            ]
-        },
-        {
-            "id": "1",
-            "name": "Terry",
-            "species": "gorilla",
-            "diet": "omnivore",
-            "personalityTraits": [
-                "anxious",
-                "goofy"
-            ]
-        }
-    ]
-}
+[{
+    "title": "test title",
+    "text": "abcd",
+    "id": "1"
+}]
