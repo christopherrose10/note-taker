@@ -1,5 +1,7 @@
 const router = require('express').Router();
-// const UUID = require("uuid");
+const fs = require('fs');
+const path = require('path');
+const UUID = require("uuid");
 
 let notes = require('../db/db');
 
@@ -8,27 +10,17 @@ router.get('/notes', (req, res) => {
 });
 
 router.post('/notes', (req, res) => {
-    // req.body.id = UUID.v1();
+    let request = req.body;
+    req.body.id = UUID.v1();
+    notes.push(request);
+    res.json(notes);
 
-    // fs.readFile('./db/db.json', 'utf8', (err, data) => {
-    //     let noteDis = JSON.parse(data);
-    //     noteDis.push(req.body);
-
-    //     fs.writeFile('./db/db.json', JSON.stringify(noteDis), (err) => {
-    //         if (err) throw err;
-    //         res.json(req.body);
-    //     });
-    // })
-
-    // set id based on what the next index of the array will be
-    req.body.id = notes.length.toString();
-
-    res.json(req.body);
+    fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(notes));
 });
 
 router.delete('/notes/:id', (req, res) => {
     const { id } = req.params;
-    let deletedId = notes.find(notes => notesid === id);
+    let deletedId = notes.find(notes => notes.id === id);
     if (deletedId) {
         notes = notes.filter(notes => notes.id != id)
         res.end();
