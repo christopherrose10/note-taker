@@ -1,4 +1,5 @@
 const router = require('express').Router();
+// const UUID = require("uuid");
 
 let notes = require('../db/db');
 
@@ -7,12 +8,20 @@ router.get('/notes', (req, res) => {
 });
 
 router.post('/notes', (req, res) => {
+    // req.body.id = UUID.v1();
+
+    // fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    //     let noteDis = JSON.parse(data);
+    //     noteDis.push(req.body);
+
+    //     fs.writeFile('./db/db.json', JSON.stringify(noteDis), (err) => {
+    //         if (err) throw err;
+    //         res.json(req.body);
+    //     });
+    // })
 
     // set id based on what the next index of the array will be
     req.body.id = notes.length.toString();
-
-    // add animal to json file and animals array in this function
-    const notes = createNewNote(req.body, notes);
 
     res.json(req.body);
 });
@@ -29,4 +38,4 @@ router.delete('/notes/:id', (req, res) => {
     }
 })
 
-module.exports  = router;
+module.exports = router;
