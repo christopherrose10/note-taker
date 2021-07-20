@@ -2,24 +2,14 @@
   "name": "note-taker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/christopherrose10/note-taker.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/christopherrose10/note-taker/issues"
-  },
-  "homepage": "https://github.com/christopherrose10/note-taker#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.16.4",
     "uuid": "^8.3.2"
   }
 }
